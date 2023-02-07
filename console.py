@@ -5,6 +5,7 @@ to be used for interaction with objects
 import cmd
 import sys
 
+
 class Console(cmd.Cmd):
     """This is a console that processes commands"""
 
@@ -18,6 +19,7 @@ class Console(cmd.Cmd):
     def do_quit(self, line):
         """Quits the console"""
         sys.exit(0)
+
 
 if __name__ == '__main__':
     Console().cmdloop()
