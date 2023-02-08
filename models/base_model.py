@@ -9,11 +9,40 @@ class BaseModel():
     methods for other classes
     """
 
-    def __init__(self):
-        """Initializes an instance"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+    def __init__(self, *args, **kwargs):
+        """Initializes an instance
+        Args:
+            *args (any): anonymous arguments
+            **kwargs (any): keyword arguments
+        """
+        if len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key == 'created_at':
+                    setattr(
+                            self,
+                            key,
+                            datetime.strptime(
+                                        value,
+                                        "%Y-%m-%dT%H:%M:%S.%f"
+                                        )
+                            )
+                elif key == 'updated_at':
+                    setattr(
+                            self,
+                            key,
+                            datetime.strptime(
+                                        value,
+                                        "%Y-%m-%dT%H:%M:%S.%f"
+                                        )
+                            )
+                elif key == '__class__':
+                    continue
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         """Updates the public instance attribute
