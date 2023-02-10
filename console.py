@@ -4,7 +4,6 @@ to be used for interaction with objects
 """
 import cmd
 import sys
-import json
 from models.base_model import BaseModel
 from models import storage
 
@@ -94,8 +93,22 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
-    def do_all(self, class_name):
-        pass
+    def do_all(self, arg):
+        """Prints a list of the string representation
+        of all instances based or not on the class name.
+
+        Args:
+            arg: argument to be passed to command
+        """
+        if arg and arg not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            all_objs = storage.all()
+            my_list = []
+            for obj in all_objs.values():
+                obj = str(obj)
+                my_list.append(obj)
+            print(my_list)
 
     def update(self, class_name, obj_id, att_name, att_val):
         pass
