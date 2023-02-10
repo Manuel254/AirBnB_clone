@@ -4,6 +4,7 @@ to be used for interaction with objects
 """
 import cmd
 import sys
+import json
 from models.base_model import BaseModel
 from models import storage
 
@@ -11,8 +12,9 @@ class HBNBCommand(cmd.Cmd):
     """This is a console that processes commands"""
 
     prompt = "(hbnb) "
+    classes = {"BaseModel": BaseModel}
 
-    def do_create(self, class_name=None):
+    def do_create(self, arg):
         """Creates a new instance of BaseModel
         class, saves it to the JSON file and prints
         the id if successfull else prints error message.
@@ -20,9 +22,9 @@ class HBNBCommand(cmd.Cmd):
         Args:
             class_name (class): BaseModel class
         """
-        if class_name is not None:
-            if class_name == "BaseModel":
-                my_model = BaseModel()
+        if arg:
+            if arg in HBNBCommand.classes:
+                my_model = HBNBCommand.classes[arg]()
                 my_model.save()
                 print("{}".format(my_model.id))
             else:
@@ -38,23 +40,24 @@ class HBNBCommand(cmd.Cmd):
         Args:
             arg: argument to be passed to command
         """
-        if len(parse(arg)) == 0:
+        args = parse(arg)
+        if len(args) == 0:
             print("** class name missing **")
-        if len(parse(arg)) == 1:
-            class_name = parse(arg)[0]
-            if class_name == "BaseModel":
+        if len(args) == 1:
+            class_name = args[0]
+            if class_name in HBNBCommand.classes:
                 print("** instance id missing **")
             else:
                 print("** class doesn't exist **")
-        if len(parse(arg)) == 2:
-            class_name, obj_id = parse(arg)
-            if class_name == "BaseModel":
+        if len(args) == 2:
+            class_name, obj_id = args
+            if class_name in HBNBCommand.classes:
                 all_objs = storage.all()
                 my_model = None
                 for obj in all_objs.values():
                     obj = obj.to_dict()
                     if obj["id"] == obj_id:
-                        my_model = BaseModel(**obj)
+                        my_model = HBNBCommand.classes[class_name](**obj)
                 if my_model is not None:
                     print(my_model)
                 else:
@@ -62,8 +65,34 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
-    def do_destroy(self, class_name, obj_id):
-        pass
+    def do_destroy(self, arg):
+        """Deletes an instance based on the class name and id
+        else prints error message.
+
+        Args:
+            arg: argument to be passed to command
+        """
+        args = parse(arg)
+        if len(args) == 0:
+            print("** class name missing **")
+        if len(args) == 1:
+            class_name = args[0]
+            if class_name in HBNBCommand.classes:
+                print("** instance id missing **")
+            else:
+                print("** class doesn't exist **")
+        if len(args) == 2:
+            class_name, obj_id = args
+            if class_name in HBNBCommand.classes:
+                key = "{}.{}".format(class_name, obj_id)
+                all_objs = storage.all()
+                if key in all_objs:
+                    del all_objs[key]
+                    storage.save()
+                else:
+                    print("** no instance found **")
+            else:
+                print("** class doesn't exist **")
 
     def do_all(self, class_name):
         pass
