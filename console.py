@@ -7,6 +7,7 @@ import sys
 from models.base_model import BaseModel
 from models import storage
 
+
 class HBNBCommand(cmd.Cmd):
     """This is a console that processes commands"""
 
@@ -124,8 +125,10 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         sys.exit(0)
 
+
 def parse(arg):
     return arg.split()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
