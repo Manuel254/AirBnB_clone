@@ -111,8 +111,53 @@ class HBNBCommand(cmd.Cmd):
                 my_list.append(obj)
             print(my_list)
 
-    def update(self, class_name, obj_id, att_name, att_val):
-        pass
+    def do_update(self, arg):
+        """Updates an instance based on the class name and id
+        by adding or updating attribute else prints error message.
+
+        Args:
+            arg: argument to be passed to command
+        """
+        args = parse(arg)
+        if len(args) == 0:
+            print("** class name missing **")
+        if len(args) == 1:
+            class_name = args[0]
+            if class_name in HBNBCommand.classes:
+                print("** instance id missing **")
+            else:
+                print("** class doesn't exist **")
+        if len(args) > 1:
+            all_objs = storage.all()
+            if len(args) == 2:
+                class_name, obj_id = args
+                if class_name in HBNBCommand.classes:
+                    key = "{}.{}".format(class_name, obj_id)
+                    if key in all_objs:
+                        print("** attribute name missing **")
+                    else:
+                        print("** no instance found **")
+            if len(args) == 3:
+                class_name, obj_id, attr_name = args
+                if class_name in HBNBCommand.classes:
+                    key = "{}.{}".format(class_name, obj_id)
+                    if key in all_objs and attr_name:
+                        print("** value missing **")
+            if len(args) == 4:
+                class_name, obj_id, attr_name, attr_val = args
+                if class_name in HBNBCommand.classes:
+                    key = "{}.{}".format(class_name, obj_id)
+                    if key in all_objs:
+                        val = all_objs[key].to_dict()
+                        if '.' in attr_val:
+                            attr_val = float(attr_val)
+                        elif attr_val.isdigit():
+                            attr_val = int(attr_val)
+                        else:
+                            attr_val = attr_val.replace('"', '')
+                        setattr(storage.all()[key], attr_name, attr_val)
+                        storage.all()[key].save()
+
 
     def emptyline(self):
         return
