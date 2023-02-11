@@ -22,4 +22,3 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(self.bm1, "id"))
         self.assertIsInstance(self.bm1.id, str)
         self.assertNotEqual(self.bm1.id, self.bm2.id)
-
