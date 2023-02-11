@@ -2,6 +2,8 @@
 """This module serializes and deserializes json file"""
 import json
 from models.base_model import BaseModel
+from models.user import User
+
 
 class FileStorage():
     """Serializes instances to a Json file and
@@ -27,7 +29,7 @@ class FileStorage():
         with open(FileStorage.__file_path, "w") as f:
             obj_dict = FileStorage.__objects
             output = {k: v.to_dict() for k, v in obj_dict.items()}
-            json.dump(output, f, sort_keys=True, indent=4)
+            json.dump(output, f)
 
     def reload(self):
         """Deserializes JSON file to __objects"""
