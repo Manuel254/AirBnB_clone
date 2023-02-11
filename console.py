@@ -158,7 +158,6 @@ class HBNBCommand(cmd.Cmd):
                         setattr(storage.all()[key], attr_name, attr_val)
                         storage.all()[key].save()
 
-
     def emptyline(self):
         return
 
