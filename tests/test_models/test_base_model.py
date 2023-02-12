@@ -18,7 +18,15 @@ class TestBaseModel(unittest.TestCase):
 
     def test_uuid(self):
         """UUID tests"""
-        self.assertIsInstance(self.bm1, BaseModel)
         self.assertTrue(hasattr(self.bm1, "id"))
         self.assertIsInstance(self.bm1.id, str)
         self.assertNotEqual(self.bm1.id, self.bm2.id)
+
+    def test_instance_type(self):
+        """tests what the instance type is"""
+        self.assertIsInstance(self.bm1, BaseModel)
+        self.assertIsInstance(str(self.bm1), str)
+
+    def test_to_dict(self):
+        """tests the dictionary representation of an instance"""
+        self.assertIsInstance(self.bm2.to_dict(), dict)
