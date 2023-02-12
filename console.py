@@ -3,7 +3,6 @@
 to be used for interaction with objects
 """
 import cmd
-import sys
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -173,15 +172,16 @@ class HBNBCommand(cmd.Cmd):
                         storage.all()[key].save()
 
     def emptyline(self):
-        return
+        pass
 
-    def do_EOF(self, line):
+    def do_EOF(self, arg):
         """End of file command"""
+        print()
         return True
 
-    def do_quit(self, line):
+    def do_quit(self, arg):
         """Quit command to exit the program"""
-        sys.exit(0)
+        return True
 
 
 def parse(arg):
