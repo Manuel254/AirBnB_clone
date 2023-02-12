@@ -172,6 +172,7 @@ class HBNBCommand(cmd.Cmd):
                         storage.all()[key].save()
 
     def emptyline(self):
+        """Checks to see if there is an empty line"""
         pass
 
     def do_EOF(self, arg):
@@ -185,6 +186,7 @@ class HBNBCommand(cmd.Cmd):
 
 
 def parse(arg):
+    """Returns a list of the arguments passed"""
     return arg.split()
 
 
