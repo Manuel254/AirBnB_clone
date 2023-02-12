@@ -57,14 +57,12 @@ class BaseModel():
         """Returns a dictionary containing all keys/values
         of __dict__ of the instance
         """
-        new_dict = {
-                    **self.__dict__,
-                    **{"__class__": self.__class__.__name__}
-                    }
-        new_dict["created_at"] = new_dict["created_at"].isoformat()
-
-        new_dict["updated_at"] = new_dict["updated_at"].isoformat()
-
+        new_dict = self.__dict__.copy()
+        new_dict.update({
+            "__class__": self.__class__.__name__,
+            "updated_at": self.updated_at.isoformat(),
+            "created_at": self.created_at.isoformat()
+            })
         return new_dict
 
     def __str__(self):
