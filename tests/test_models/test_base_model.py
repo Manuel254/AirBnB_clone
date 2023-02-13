@@ -6,6 +6,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestBaseModel(unittest.TestCase):
     """This class defines tests cases for the BaseModel
     class

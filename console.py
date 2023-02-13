@@ -170,6 +170,18 @@ class HBNBCommand(cmd.Cmd):
                             attr_val = attr_val.replace('"', '')
                         setattr(storage.all()[key], attr_name, attr_val)
                         storage.all()[key].save()
+            if len(args) > 4:
+                class_name = args[0]
+                obj_id = args[1]
+                attr_name = args[2]
+                attr_val = args[3]
+
+                if class_name in HBNBCommand.classes:
+                    key = "{}.{}".format(class_name, obj_id)
+                    if key not in all_objs:
+                        print("** no instance found **")
+                else:
+                    print("** class doesn't exist **")
 
     def emptyline(self):
         """Checks to see if there is an empty line"""
