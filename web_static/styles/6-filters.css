@@ -45,7 +45,7 @@
 	width: 100%;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
-	padding: 20% 8%;
+	padding: 10% 8%;
 	position: absolute;
 	top: 100%;
 	right: 0;
@@ -64,6 +64,10 @@
 .amenities .popover li{
 	list-style-type: none;
 	margin: 5px 10px;
+}
+
+.locations .popover li:last-child {
+	margin-bottom: 10%;
 }
 
 .locations:hover .popover,
