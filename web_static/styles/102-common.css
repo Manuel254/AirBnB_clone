@@ -26,9 +26,3 @@ body {
 ul, li {
 	list-style-type: none;
 }
-
-@media screen and (max-width: 1000px) {
-	body {
-		width: 125%;
-	}
-}
