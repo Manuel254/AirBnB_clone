@@ -122,3 +122,9 @@
 .places article:nth-of-type(3) .amenities ul li:nth-child(2)::before {
 	content: url("../images/icon_wifi.png");
 }
+
+@media screen and (max-width: 1000px) {
+	.places h1 {
+		margin-left: 20px;
+	}
+}

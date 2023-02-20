@@ -89,3 +89,15 @@
 .filters button:hover {
 	opacity: 90%;
 }
+
+/* Filter media query */
+@media screen and (max-width: 1000px) {
+	.filters {
+		width: 90%;
+		margin: auto;
+	}
+
+	.filters button {
+		margin-right: 0;
+	}
+}

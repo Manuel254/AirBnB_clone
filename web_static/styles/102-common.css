@@ -8,8 +8,6 @@ html {
 }
 
 body {
-	margin: 0;
-	padding: 0;
 	color: #484848;
 	font-size: 14px;
 	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -27,4 +25,10 @@ body {
 
 ul, li {
 	list-style-type: none;
+}
+
+@media screen and (max-width: 1000px) {
+	body {
+		width: 125%;
+	}
 }
